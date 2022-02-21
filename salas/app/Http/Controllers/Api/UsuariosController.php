@@ -20,7 +20,7 @@ class UsuariosController extends Controller
     {
         try {
 
-            $data = $request->all();
+            $data = $request->validated();
 
             $store = UsuariosFacade::store($data);
 
@@ -51,10 +51,11 @@ class UsuariosController extends Controller
      * @param int $id_usuario
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id_usuario)
+    public function update(UsuariosUpdateRequest $request, int $id_usuario)
     {
         try {
-            $data = $request->all();
+            $data = $request->validated();
+
             $update = UsuariosFacade::update($id_usuario, $data);
 
             if ($update['error'] == 0) {

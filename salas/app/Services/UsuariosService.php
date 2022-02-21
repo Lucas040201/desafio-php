@@ -31,7 +31,12 @@ class UsuariosService extends Service
 
             $data = $this->repository->store($info);
 
-            if ($data['error'] == 0) return $data;
+            if ($data['error'] == 0) {
+                return [
+                    'error' => 0,
+                    'message' => 'Usuário cadastrado com sucesso.'
+                ];
+            }
 
             return [
                 'error' => 1,
@@ -57,28 +62,33 @@ class UsuariosService extends Service
     {
         try {
             $info = [];
-            if(!empty($data)) {
-    
+            if (!empty($data)) {
+
                 $info = [
-                    'nome' => (isset($data['nome']))? $data['nome']: null,
-                    'sobrenome' => (isset($data['sobrenome']))? $data['sobrenome']: null,
-                    'email' => (isset($data['email']))? $data['email']: null,
-                    'senha' => (isset($data['senha']))? Hash::make($data['senha']): null
+                    'nome' => (isset($data['nome'])) ? $data['nome'] : null,
+                    'sobrenome' => (isset($data['sobrenome'])) ? $data['sobrenome'] : null,
+                    'email' => (isset($data['email'])) ? $data['email'] : null,
+                    'senha' => (isset($data['senha'])) ? Hash::make($data['senha']) : null
                 ];
 
-                foreach($info as $key => $item) {
-                    if(!$item) {
+                foreach ($info as $key => $item) {
+                    if (!$item) {
                         unset($info[$key]);
                     }
                 }
             }
-            $data = $this->repository->update($id_usuario ,$info);
+            $data = $this->repository->update($id_usuario, $info);
 
-            if ($data['error'] == 0) return $data;
+            if ($data['error'] == 0) {
+                return [
+                    'error' => 0,
+                    'message' => 'Usuário atualziado com sucesso.'
+                ];
+            }
 
             return [
                 'error' => 1,
-                'description' => 'Erro ao atualizar usuário'
+                'description' => 'Erro ao atualizar usuário.'
             ];
         } catch (\Exception $e) {
             Log::error('USUARIOS_SERVICE_UPDATE', [$e->getMessage(), $e->getFile(), $e->getLine()]);

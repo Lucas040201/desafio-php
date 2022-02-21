@@ -20,7 +20,7 @@ class SalasController extends Controller
     {
         try {
 
-            $data = $request->all();
+            $data = $request->validated();
 
             $store = SalasFacade::store($data);
 
@@ -55,7 +55,7 @@ class SalasController extends Controller
     {
         try {
 
-            $data = $request->all();
+            $data = $request->validated();
             $update = SalasFacade::update($id_sala, $data);
 
             if ($update['error'] == 0) {

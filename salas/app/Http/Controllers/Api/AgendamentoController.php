@@ -21,7 +21,7 @@ class AgendamentoController extends Controller
     {
         try {
 
-            $data = $request->all();
+            $data = $request->validated();
 
             $data['id_sala'] = $id_sala;
 
@@ -51,11 +51,11 @@ class AgendamentoController extends Controller
      * @param int $id_agendamento
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id_agendamento)
+    public function update(AgendamentoUpdateRequest $request, int $id_agendamento)
     {
         try {
 
-            $data = $request->all();
+            $data = $request->validated();
 
             $update = AgendamentoFacade::update($id_agendamento, $data);
 

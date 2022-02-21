@@ -43,10 +43,18 @@ class AgendamentoService extends Service
 
             $novoAgendamento = $this->repository->store($data);
 
+            if($novoAgendamento['error'] == 0) {
+                return [
+                    'error' => 0,
+                    'message' => 'Agemdamento realizado com sucesso'
+                ];
+            }
+
             return [
-                'error' => 0,
-                'data' => $novoAgendamento
+                'error' => 1,
+                'description' => 'Não foi possível realizar o agendamento.'
             ];
+
         } catch (\Exception $e) {
             Log::error('AGENDAMENTO_SERVICE_STORE', [$e->getMessage(), $e->getFile(), $e->getLine()]);
             return [
@@ -72,7 +80,7 @@ class AgendamentoService extends Service
             if ($update['error'] == 0) {
                 return [
                     'error' => 0,
-                    'data' => $update
+                    'message' => 'Agendamento atualizado com sucesso.'
                 ];
             }
 
@@ -98,23 +106,34 @@ class AgendamentoService extends Service
     private function formatarDadosAgendamento(array $data)
     {
         try {
-            $fim = $data['horario_fim'];
-            $minuto_fim = intval(date('i', strtotime($fim)));
+            $fim = null;
 
-            if ($minuto_fim % 2 == 0) {
-                $minuto_fim = $minuto_fim - 1;
-                $fim = date('H', strtotime($fim));
-                $fim .= ":$minuto_fim:00";
+            if(isset($data['horario_fim'])) {
+                $fim = $data['horario_fim'];
+    
+                $minuto_fim = intval(date('i', strtotime($fim)));
+    
+                if ($minuto_fim % 2 == 0) {
+                    $minuto_fim = $minuto_fim - 1;
+                    $fim = date('H', strtotime($fim));
+                    $fim .= ":$minuto_fim:00";
+                }
             }
 
             $info = [
-                'id_sala' => $data['id_sala'],
-                'id_usuario' => $data['id_usuario'],
-                'id_turma' => $data['id_turma'],
-                'data_agendamento' => $data['data_agendamento'],
-                'horario_inicio' => $data['horario_inicio'],
+                'id_sala' => (isset($data['id_sala']))?$data['id_sala'] : null,
+                'id_usuario' => (isset($data['id_usuario']))?$data['id_usuario'] : null,
+                'id_turma' => (isset($data['id_turma']))?$data['id_turma'] : null,
+                'data_agendamento' => (isset($data['data_agendamento']))?$data['data_agendamento'] : null,
+                'horario_inicio' => (isset($data['horario_inicio']))?$data['horario_inicio'] : null,
                 'horario_fim' => $fim,
             ];
+
+            foreach($info as $key => $item) {
+                if(!$item) {
+                    unset($info[$key]);
+                }
+            }
 
             return $info;
         } catch (\Exception $e) {

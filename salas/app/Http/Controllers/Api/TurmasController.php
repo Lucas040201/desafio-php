@@ -19,7 +19,7 @@ class TurmasController extends Controller
     {
         try {
 
-            $data = $request->all();
+            $data = $request->validated();
 
             $store = TurmasFacade::store($data);
 
@@ -54,7 +54,7 @@ class TurmasController extends Controller
     {
         try {
 
-            $data = $request->all();
+            $data = $request->validated();
             $update = TurmasFacade::update($id_turma, $data);
 
             if ($update['error'] == 0) {

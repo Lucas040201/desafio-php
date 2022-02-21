@@ -28,27 +28,21 @@ class AgendamentoUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_sala' => 'required|exists:sala,id',
-            'id_usuario' => 'required|exists:usuarios,id',
-            'id_turma' => 'required|exists:turmas,id',
-            'data_agendamento' => 'required',
-            'horario_inicio' => 'required',
-            'horario_fim' => 'required'
+            'id_sala' => 'nullable|exists:salas,id',
+            'id_usuario' => 'nullable|exists:usuarios,id',
+            'id_turma' => 'nullable|exists:turmas,id',
+            'data_agendamento' => 'nullable',
+            'horario_inicio' => 'nullable',
+            'horario_fim' => 'nullable'
         ];
     }
 
     public function messages()
     {
         return [
-            'id_sala.required' => 'O id da sala é obrigatório.',
             'id_sala.exists' => 'A sala Informada não existe.',
-            'id_usuario.required' => 'O id do Usuário é obrigatório.',
             'id_usuario.exists' => 'O Usuário Informado não existe.',
-            'id_turma.required' => 'O id da Turma é obrigatório.',
             'id_turma.exists' => 'A Turma informada não existe.',
-            'data_agendamento.required' => 'A data é obrigatória.',
-            'horario_inicio.image' => 'A Hora inicial é obrigatória.',
-            'horario_fim.mimes' => 'A Hora final é obrigatória.'
         ];
     }
 

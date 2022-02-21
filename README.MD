@@ -38,7 +38,7 @@
 
 <p>Para iniciar o projeto, entre em salas/ pelo terminal e digite cp .env.example .env. Após ter realizado a copia do arquivo .env preencha as informações do banco (obs: não se esqueça de criar um banco mysql).</p>
 
-<p>Após essas configurações iniciais na mesma pasta rode o comando composer install, logo em seguida rode as migrations com php artisan migrate:fresh --seed. E claro, não menos importante rode o comando php artisan serve para iniciar o servidor web.</p>
+<p>Após essas configurações iniciais na mesma pasta rode o comando composer install, logo em seguida rode as migrations com php artisan migrate --seed. E claro, não menos importante rode o comando php artisan serve para iniciar o servidor web.</p>
 
   
 
