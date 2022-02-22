@@ -2,14 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Models\Agendamento;
-use App\Repositories\Interfaces\AgendamentoRepositoryInterface;
 use App\Repositories\Interfaces\RepositoryInterface;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 
-class Repository implements RepositoryInterface
+abstract class Repository implements RepositoryInterface
 {
 
     protected $model;

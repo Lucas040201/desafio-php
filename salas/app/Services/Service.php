@@ -4,7 +4,7 @@ namespace App\Services;
 
 use Illuminate\Support\Facades\Log;
 
-class Service
+abstract class Service
 {
 
     protected $repository;
