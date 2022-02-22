@@ -15,9 +15,6 @@
 
 - [API](#API)
 
-- [Informações Adicionais](#info)  
-  
-
 ## 🧐 Sobre <a name = "sobre"></a>
 
   
